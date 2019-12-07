@@ -4,15 +4,15 @@ public class IoC {
 
     public static void main(String[] args) {
         IoC container = new IoC();
-        User user = container.new User();
+        User user = container.new User( container.new MySqlDatabase());
         user.add( "Info to persist");
     }
 
     public class User {
         MySqlDatabase database;
 
-        public User() {
-            this.database = new MySqlDatabase();
+        public User( MySqlDatabase database) {
+            this.database = database;
         }
 
         void add( String data) {
