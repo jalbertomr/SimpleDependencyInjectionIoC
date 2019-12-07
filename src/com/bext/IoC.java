@@ -4,14 +4,14 @@ public class IoC {
 
     public static void main(String[] args) {
         IoC container = new IoC();
-        User user = container.new User( container.new MySqlDatabase());
+        User user = container.new User( container.new OracleDatabase());
         user.add( "Info to persist");
     }
 
     public class User {
-        MySqlDatabase database;
+        Database database;
 
-        public User( MySqlDatabase database) {
+        public User( Database database) {
             this.database = database;
         }
 
@@ -20,10 +20,19 @@ public class IoC {
         }
     }
 
-    public class MySqlDatabase {
+    interface Database {
+        public void persist(String data);
+    }
+
+    public class MySqlDatabase implements Database {
         public void persist(String data) {
             System.out.println("MySqlDatabase persisted [" + data + "]");
         }
     }
 
+    public class OracleDatabase implements Database {
+        public void persist(String data) {
+            System.out.println("OracleDatabase persisted [" + data + "]");
+        }
+    }
 }
